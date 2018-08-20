@@ -54,7 +54,7 @@ const getGrades = (schoolId) =>{
             resolve(result)
         }
         else{
-            reject("Unable to find grades")
+            reject(`Unable to find grades of ${schoolId}`)
         }
     })
 }
@@ -86,7 +86,14 @@ const getStatus = (userId) => {
 const getStatusAlt = async (userId) =>{
     // await is ALWAYS INSIDE FUNCTION
     const user = await getUser(userId); // It's synchronous
-    console.log(user);
+    const grades = await getGrades(user.schoolId);
+
+    let average = 0;
+    if (grades.length > 0) {
+        average = grades.map((grade) => grade.grade).reduce((a, b) => a + b) / grades.length;
+    }
+
+    return `${user.name} has a ${average} in the class.`;
 }
 
 getStatusAlt(2).then((data)=>{
