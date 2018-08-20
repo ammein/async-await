@@ -81,9 +81,21 @@ const getStatus = (userId) => {
     });
 }
 
-getStatus(1).then((status)=>{
-    console.log(status);
+// async await
+
+const getStatusAlt = async (userId) =>{
+    // await is ALWAYS INSIDE FUNCTION
+    const user = await getUser(userId); // It's synchronous
+    console.log(user);
+}
+
+getStatusAlt(2).then((data)=>{
+    console.log(data);
 }).catch((e)=> console.log(e));
+
+// getStatus(1).then((status)=>{
+//     console.log(status);
+// }).catch((e)=> console.log(e));
 
 
 // let generator = function*(){
